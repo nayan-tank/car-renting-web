@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+<!-- load static files -->
+{% load static %}
+
+<!-- title -->
+{% block title %}
+  Home
+{% endblock title %}
+
+<!-- css file path -->
+{% block cssfile %}
+  {% static "css/home.css" %}
+{% endblock cssfile %}
+
+<!-- main -->
+{% block body %}
+
+  <!-- header -->
+  <!-- {% include "header.html" %} -->
+
+  <!-- card -->
+  <main class="card-container">
+
+    {% for i in l %}
+      
+    <div class="card" style="width: 18rem;">
+      <img src="{% static 'images/car2.jpg' %}" class="card-img-top" alt="img not found">
+      <div class="card-body">
+        <h5 class="card-title"> BMW </h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p> <strong style="font-size: larger;"> 950000$ </strong> <a href="#" class="btn btn-primary">Buy</a> </p>
+      </div>
+    </div>
+    
+    {% endfor %}
+  </main>
+  
+{% endblock body %}

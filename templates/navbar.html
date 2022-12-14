@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static '/css/navbar.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+<nav>
+    <input type="checkbox" id="check">
+    
+    <label for="check" class="checkbtn">
+        <span class="material-symbols-outlined "> menu </span>
+    </label>
+
+    <label for="" class="logo"> DesignX </label>
+    
+    <ul>
+        <li><a class="active" href="{% url 'home' %}">Home</a></li>
+        <li><a class="" href="#about">About</a></li>
+        <li><a class="" href="{% url 'request' %}">Sell Car</a></li>
+        <li><a class="" href="{% url 'login' %}">Login</a></li>
+        <li><a class="" href="{% url 'logout' %}">Logout</a></li>
+        <li><a class="" href="{% url 'dashboard' %}">Dashboard</a></li>
+        <!-- <span class="material-symbols-outlined user_icon"> account_circle </span> -->
+    </ul>
+
+</nav>

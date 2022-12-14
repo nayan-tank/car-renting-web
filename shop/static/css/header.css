@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-inner{
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    overflow: hidden;
+    /* top: -39px; */
+}
+

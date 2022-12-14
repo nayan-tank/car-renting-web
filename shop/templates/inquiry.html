@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Inquiry
+{% endblock title %}
+
+{% block body %}
+  
+<h1> Inquiry Form </h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{fm.as_table}}
+    </table>
+    <button>SUBMIT</button>
+</form>
+
+{% endblock body %}

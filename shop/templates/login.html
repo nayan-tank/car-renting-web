@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Login
+{% endblock title %}
+
+<!-- Sign in -->
+{% block body %}
+  
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+  <link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+    rel="stylesheet"
+    />
+  <div class="login-box">
+    <h1>Login</h1>
+    <form method="POST">
+
+      {% csrf_token %}
+            
+        {% for f in fm %}
+          {{f.label_tag}}  
+          {{f}} <span class="error"> {{fm.errors|striptags}} </span>
+        {% endfor %}
+
+        <button> Submit </button>
+        <br> <br>
+
+        <p class="para-2">
+          Not have an account? <a href="{% url 'signup' %}">Sign Up Here</a>
+        </p>
+      </form>
+  </div>
+
+{% endblock body %}
