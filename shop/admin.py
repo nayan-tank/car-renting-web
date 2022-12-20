@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import *
+# from django.contrib.auth.models import User
 
 # Register your models here.
 
-models = [Admin, Area, City, Brand, Model, User, Company, CompanyPurchase, CompanySell, Car, CarParts, CarRequest, Image, Inquiry, Payment]
+models = [ Area, City, Brand, Model, Company, CompanyPurchase, CompanySell, Car, CarParts, CarRequest, Image, Inquiry, Payment]
 
 admin.site.register(models)
 

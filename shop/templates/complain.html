@@ -1,18 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   Complain
 {% endblock title %}
 
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock css %}
+
 {% block body %}
 
-<h1>Complain Form </h1>
-<form action="" method="POST">
+<div class="complain-box">
+  <h1>Complain Form </h1>
+  <form method="POST">
+  
     {% csrf_token %}
-    <table>
-        {{fm.as_table}}
-    </table>
-    <button>SUBMIT</button>
-</form>
+              
+      {% for f in fm %}
+        {{f.label_tag}}  
+        {{f}} <span class="error"> {{fm.errors|striptags}} </span>
+      {% endfor %}
+  
+      <button> Submit </button>
+  </form>        
+</div>
+<br> <br>
 
 {% endblock body %}

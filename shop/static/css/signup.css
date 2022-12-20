@@ -5,7 +5,7 @@ body {
   
   .signup-box {
     width: 360px;
-    height: 610px;
+    /* height: 750px; */
     margin: 50px auto;
     background-color: white;
     border-radius: 3px;
@@ -13,10 +13,33 @@ body {
   
   .login-box {
     width: 360px;
-    height: 300px;
+    /* height: 300px; */
     margin: 50px auto;
     border-radius: 3px;
     background-color: white;
+  }
+
+  .complain-box{
+    margin: 50px auto;
+    /* border: 1px solid; */
+    width: 70%;
+    background-color: white;
+  }
+
+  .complain-box form{
+    padding: 10px;
+    margin: auto;
+    width: 80%;
+  }
+
+  .complain-box textarea{
+    width: 100%;
+    height: 300px;
+  }
+
+  .complain-box button{
+    width: 100%;
+    border-radius: 5px;
   }
   
   h1 {
@@ -69,14 +92,61 @@ body {
   }
   .para-2 {
     text-align: center;
-    color: white;
+    color: black;
     font-size: 15px;
     margin-top: -10px;
   }
   .para-2 a {
-    color: #49c1a2;
+    color: #003366;
   }
   
   .error{
     color: red;
   }
+
+  .right form .text{
+    font-size: 1.0625rem;
+    margin-bottom: 2px;
+    color: #656565;
+  }
+  
+  .right form .msg{
+    margin-top: 10px;
+  }
+  
+  .right form input, .right form textarea{
+    width: 100%;
+    font-size: 1.0625rem;
+    background: #151515;
+    padding-left: 10px;
+    border: 1px solid #222222;
+  }
+  
+  .right form input:focus,
+  .right form textarea:focus{
+    outline-color: #3498db;
+    background-color: white;
+    color: black;
+  }
+
+  .right form input{
+    height: 35px;
+  }
+  
+  .right form .btn{
+    margin-top: 10px;
+  }
+  
+  .right form .btn {
+    height: 40px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #f12020;
+    color: white;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .3s;
+  }
+  

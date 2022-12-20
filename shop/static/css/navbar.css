@@ -10,7 +10,8 @@ nav{
     background-color:#001a33;
     height: 80px;
     width: 100%;
-    
+    /* position: relative; */
+    top: 0;
 }
 
 label.logo{
@@ -22,18 +23,18 @@ label.logo{
     font-family: 'Permanent Marker', cursive;
 }
 
-nav ul{
+nav .ul{
     float: right;
     margin-right: 20px;
 }
 
-nav ul li{
+nav .ul li{
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
 }
 
-nav ul li a{
+nav .ul li a{
     color: white;
     font-size: 17px;
     text-transform: uppercase;
@@ -43,10 +44,10 @@ nav ul li a{
 }
 
 a.active, a:hover{
-    /* background: white; */
-    border: 2px solid white;
-    /* color: black; */
-    transition: .5s;
+    /* background: white;   */
+    /* border: 2px solid white; */
+    /* color: aqua; */
+    /* transition: .5s; */
 }
 
 .checkbtn{
@@ -73,24 +74,24 @@ a.active, a:hover{
         padding-left: 50px;
     }
 
-    nav ul li a{
+    nav .ul li a{
         font-size: 16px;
     }
 
     a.active, a:hover{
         /* color: black; */
         /* background: white; */
-        border: 2px solid white;
-        transition: .5s;
+        /* border: 2px solid white; */
+        /* transition: .5s; */
     }
 }
 
-@media (max-width: 858px) {
+@media (max-width: 870px) {
     .checkbtn{
         display: block;
     }
 
-    ul{
+    nav .ul{
         position: fixed;
         z-index: 1;
         width: 100%;
@@ -99,10 +100,10 @@ a.active, a:hover{
         top: 80px;
         left: -100%;
         text-align: center;
-        transition: all .5s;
+        /* transition: all .5s; */
     }
 
-    nav ul li{
+    nav .ul li{
         display: block;
         margin: 50px 0;
         line-height: 30px;
@@ -112,12 +113,12 @@ a.active, a:hover{
         /* background: none; */
         /* color: black; */
         /* background: white; */
-        border: 2px solid white;
-        transition: .5s;
+        /* border: 2px solid white; */
+        /* transition: .5s; */
         
     }
 
-    nav ul li a{
+    nav .ul li a{
         font-size: 20px;
     }
 
@@ -125,3 +126,17 @@ a.active, a:hover{
         left: 0;
     }
 }
+
+#user-icon{
+    position: relative;
+    right: 30px;
+    bottom: 14px;
+    margin: 15px;
+    margin-left: 20px;
+}
+
+#user-symbol{
+    position: absolute;
+    font-size: 30px !important;
+}
+

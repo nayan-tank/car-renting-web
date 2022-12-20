@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    margin: 20px;
+}
+
+.related-car-title{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.car-details-container{
+    width: 100%;
+}
+
+.box-two{
+    height: 100% !important;
+    width: auto !important;
+}
+
+.car-details-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-details-container table th, table td{
+    /* empty-cells: hide; */
+    /* border: 1px solid;    */
+    padding: 10px;
+
+
+}
+
+.car-details-container table{
+    width: 700px;
+    margin: 20px;
+}
+
+.parent-container{
+    width: 100%;
+    display: flex ;
+    /* flex-wrap: wrap; */
+    /* border: 3px solid red; */
+    justify-content: space-evenly;
+    
+}
+
+.box-one, .box-two, .box-three{
+    /* border: 2px solid green; */
+    width: 100%;
+}
+
+.box-two{
+    border-left: 50px solid ;
+    border-radius: 5px;
+    line-height: 500px;
+
+}
+
+.car-img{
+    width: 93%;
+    margin: 20px;
+}
+
+@media (max-width: 870px) {
+    .parent-container{
+        display: block;
+    }
+
+    .car-details-container{
+        display: block;
+    }
+
+    .box-two{
+        display: none;
+    }
+
+    .box-three{
+        margin: 20px;
+    }
+}

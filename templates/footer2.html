@@ -1,0 +1,91 @@
+{% load static %}
+  
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/footer2.css'%}">
+{% endblock css %}
+
+{% block otherlink %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+{% endblock otherlink %}
+
+{% block body %}
+      
+
+    <footer id="footer">
+      <div class="main-content">
+        <div class="left box">
+          <h2>About us</h2>
+          <div class="content">
+            <p>DesignX is a website where you can buy and sell your used cars to us. we have a best deal for you</p>
+            <span class="footer-link"> <a href="{% url 'complain' %}" > Complain </a> </span> |
+            <span class="footer-link"> <a href="{% url 'feedback' %}" > Review </a> </span>
+            <div class="social">
+              <a href="https://facebook.com" target="_blank"><span class="fab fa-facebook-f"></span></a>
+              <a href="https://twitter.com" target="_blank"><span class="fab fa-twitter"></span></a>
+              <a href="https://instagram.com" target="_blank"><span class="fab fa-instagram"></span></a>
+              <a href="https://www.youtube.com" target="_blank"><span class="fab fa-youtube"></span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="center box">
+          <h2>Address</h2>
+          <div class="content">
+            <div class="place">
+              <span class="fas fa-map-marker-alt"></span>
+              <span class="text">Bhimjipura, Ahmedabad</span>
+            </div>
+            <div class="phone">
+              <span class="fas fa-phone-alt"></span>
+              <span class="text">+089-765432100</span>
+            </div>
+            <div class="email">
+              <span class="fas fa-envelope"></span>
+              <span class="text">nayan@gmail.com</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Inquiry Form -->
+        <div class="right box">
+          <h2>Inquiry Form</h2>
+          <div class="content">
+
+            <form method="POST" action="{% url 'home' %}" class="footer-form">
+              {% csrf_token %}
+
+              <div class="email">
+                <div class="text">Email *</div>
+                <input type="email" name="email" required>
+              </div>
+
+              <!-- <div class="subject">
+                <div class="text">Subject *</div>
+                <input type="text" name="subject" required>
+              </div> -->
+              
+              <div class="msg">
+                <div class="text">Message *</div>
+                <textarea rows="2" cols="25" required name="inq_text"></textarea>
+              </div>
+              
+              <div>
+                <button type="submit" class="btn">Send</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- <div class="bottom">
+        <center>
+          <span class="credit">Created By <a href="#">Nayan</a> | </span>
+          <span class="far fa-copyright"></span><span> 2020 All rights reserved.</span>
+        </center>
+      </div> -->
+
+    </footer>
+
+{% endblock body %} 

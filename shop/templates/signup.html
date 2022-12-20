@@ -5,52 +5,41 @@
   Registration
 {% endblock title %}
 
-  
-    <!-- <h1>Registration Form </h1>
-    <form action="" method="POST" >
-        {% csrf_token %}
-        {% for f in fm %}
-        <br>  {{f.label_tag}} {{f.errors|striptags}}
-        <br>  {{f}}
-        {% endfor %}
-        <br> <br>
-        <button> Register </button>
-    </form> -->
-
-
-    <!-- Sign up -->
-
-{% block body %}
-      
+{% block css %}
   <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-    rel="stylesheet"
-    />
+{% endblock css %}
+
+{% block otherlink %}
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+{% endblock otherlink %}
+
+
+{% block body %}      
     
     <div class="signup-box">
-    <h1>Sign Up</h1>
-    <h4>It's free and only takes a minute</h4>
-    <form method="POST" >
       
-      {% csrf_token %}
+      <h1>Sign Up</h1>
+      <h4>It's free and only takes a minute</h4>
+      <form method="POST" >
+        
+        {% csrf_token %}
+        
+        {% for f in fm %}
+          {{f.label_tag}}  
+          {{f}} <span class="error"> {{f.errors|striptags}} </span>
+        {% endfor %}
       
-      {% for f in fm %}
-        {{f.label_tag}}  
-        {{f}} <span class="error"> {{f.errors|striptags}} </span>
-      {% endfor %}
-    
+        <br>
+        <button> Register </button>
+
+      </form>
+      <p> By clicking the Sign Up button,you agree to our <br /> <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a> </p>
       <br>
-    <button> Register </button>
-    </form>
-      <p>
-        By clicking the Sign Up button,you agree to our <br />
-        <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
-      </p>
-      <br>
+      
       <p class="para-2">
         Already have an account? <a href="{% url 'login' %}">Login here</a>
       </p>
+
     </div>
 
 {% endblock body %}

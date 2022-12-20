@@ -1,20 +1,21 @@
 from django.db import models
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 # import uuid
 
-class Admin(models.Model):
-    # admin_id = models.UUIDField(auto_created=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    phone = models.CharField(max_length=10)
-    email = models.CharField(unique=True, max_length=30)
-    password = models.CharField(max_length=20)
-    area = models.CharField(max_length=50, null=True)
-    # area_pincode = models.ForeignKey('Area', null=True, on_delete=models.SET_NULL, db_column='area_area_pincode')
+# class Admin(models.Model):
+#     # admin_id = models.UUIDField(auto_created=True)
+#     first_name = models.CharField(max_length=20)
+#     last_name = models.CharField(max_length=20)
+#     phone = models.CharField(max_length=10)
+#     email = models.CharField(unique=True, max_length=30)
+#     password = models.CharField(max_length=20)
+#     area = models.CharField(max_length=50, null=True)
+#     # area_pincode = models.ForeignKey('Area', null=True, on_delete=models.SET_NULL, db_column='area_area_pincode')
 
-    def __str__(self):
-        return self.first_name + ' ' + self.last_name
+#     def __str__(self):
+#         return self.first_name + ' ' + self.last_name
     
 
 
@@ -39,7 +40,7 @@ class Area(models.Model):
 
 class Brand(models.Model):
     brand_id = models.AutoField(primary_key=True, )
-    brand_name = models.CharField(max_length=45)
+    brand_name = models.CharField(max_length=45, unique=True)
 
     def __str__(self):
         return self.brand_name
@@ -48,7 +49,7 @@ class Brand(models.Model):
 
 class Model(models.Model):
     model_id = models.AutoField(primary_key=True, )
-    model_name = models.CharField(max_length=45)
+    model_name = models.CharField(max_length=45, unique=True)
     year = models.CharField(max_length=4, default=datetime.datetime.now().strftime('%Y'))
     engine = models.CharField(max_length=30)
     car_stock = models.IntegerField(default=1)
@@ -61,7 +62,7 @@ class Model(models.Model):
 
 
 class Company(models.Model):
-    com_id = models.AutoField(primary_key=True, )
+    company_id = models.AutoField(primary_key=True, )
     name = models.CharField(max_length=45)
     address = models.CharField(max_length=45)
     contact = models.CharField(max_length=10)
@@ -70,6 +71,12 @@ class Company(models.Model):
     def __str__(self):
         return self.name
     
+
+CAR_SOLD_STATUS = (
+    (0, 0),
+    (1, 1)
+)
+
 
 class Car(models.Model):
     car_id = models.AutoField(primary_key=True, )
@@ -83,12 +90,26 @@ class Car(models.Model):
     purc_date = models.DateField()
     no_of_owner = models.IntegerField()
     transmission = models.CharField(max_length=30)
+    sold_out = models.IntegerField(choices=CAR_SOLD_STATUS, default=0)
+    img = models.ImageField(upload_to='images/', default='images/car1.jpg')
     model_id = models.ForeignKey('Model', models.DO_NOTHING)
-    company_id = models.ForeignKey('Company',null=True, on_delete=models.SET_NULL)
+    company_id = models.ForeignKey('Company',null=True, on_delete=models.SET_NULL, default=1)
 
     def __str__(self):
         return self.car_name
     
+    class Meta:
+        ordering = ['car_id']
+
+
+class Image(models.Model):
+    image_id = models.AutoField(primary_key=True, )
+    image_path = models.ImageField(upload_to='images/')
+    car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.car_id
+
 
 class CarParts(models.Model):
     car_parts_id = models.AutoField(primary_key=True, )
@@ -98,33 +119,26 @@ class CarParts(models.Model):
 
     def __str__(self):
         return self.part_name
-    
-
-class Image(models.Model):
-    image_id = models.AutoField(primary_key=True, )
-    image_path = models.ImageField(upload_to='images/')
-    car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
 
 
+# class User(models.Model):
+#     user_id = models.AutoField(primary_key=True,)
+#     first_name = models.CharField(max_length=10)
+#     last_name = models.CharField(max_length=10)
+#     email = models.CharField(max_length=45, unique=True)
+#     password = models.CharField(max_length=20)
+#     phone = models.CharField(max_length=10)
+#     area_pincode = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL, db_column='area_area_pincode')
+#     company_id = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
 
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True, )
-    first_name = models.CharField(max_length=10)
-    last_name = models.CharField(max_length=10)
-    email = models.CharField(max_length=45, unique=True)
-    password = models.CharField(max_length=20)
-    phone = models.CharField(max_length=10)
-    area_pincode = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL, db_column='area_area_pincode')
-    company_id = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return self.first_name + ' ' + self.last_name
+#     def __str__(self):
+#         return self.first_name + ' ' + self.last_name
     
 
 CAR_REQUEST_STATUS = (
-    ('pending', 'PENDING'),
-    ('accepted', 'ACCEPTED'),
-    ('cancel', 'CANCEL'),
+    ('Pending', 'PENDING'),
+    ('Accepted', 'ACCEPTED'),
+    ('Cancel', 'CANCEL'),
 )
 
 class CarRequest(models.Model):
@@ -138,8 +152,8 @@ class CarRequest(models.Model):
     km_driven = models.IntegerField()
     model_name = models.CharField(max_length=45)
     transmmision = models.CharField(max_length=30)
-    # img = models.ImageField(upload_to='images/', default='images/ferari.jpg')
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    image = models.ImageField(upload_to='req_car_img/', max_length=300,)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
@@ -148,17 +162,18 @@ class CarRequest(models.Model):
 
 class Inquiry(models.Model):
     inquiry_id = models.AutoField(primary_key=True, )
+    email = models.EmailField(max_length=300,)
     inq_text = models.TextField(max_length=300)
     date_time = models.DateTimeField(auto_now_add=True)
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.inq_text
     
 
 class CompanyPurchase(models.Model):
-    car_request_id = models.ForeignKey(CarRequest, null=True, on_delete=models.SET_NULL)
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    req_id = models.ForeignKey(CarRequest, null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     purc_date = models.DateField()
 
     def __str__(self):
@@ -166,34 +181,35 @@ class CompanyPurchase(models.Model):
 
 
 class CompanySell(models.Model):
-    car_sell_id = models.AutoField(primary_key=True, )
+    sell_id = models.AutoField(primary_key=True, )
     sell_date = models.DateField()
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
-    com_id = models.ForeignKey('Company', null=True, on_delete=models.SET_NULL)
+    company_id = models.ForeignKey('Company', null=True, on_delete=models.SET_NULL, default=1)
 
     def __str__(self):
-        return self.car_id
+        return str(self.car_id)
     
 
 
 class Complain(models.Model):
-    comp_id = models.AutoField(primary_key=True, )
+    company_id = models.AutoField(primary_key=True)
+    subject = models.CharField(max_length=50)
     text = models.TextField(max_length=300)
     date_time = models.DateTimeField(auto_now_add=True)
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
-    car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    # car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.text
     
-
+    
 class Feedback(models.Model):
     feedback_id = models.AutoField(primary_key=True, )
     feedback_text = models.TextField(max_length=300)
     date_time = models.DateTimeField(auto_now_add=True)
-    car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    # car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.feedback_text
@@ -203,7 +219,7 @@ class Payment(models.Model):
     pay_id = models.AutoField(primary_key=True, )
     amount = models.IntegerField()
     date_time = models.DateTimeField(auto_now_add=True)
-    user_id = models.ForeignKey('User', null=True, on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     car_id = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
 
 

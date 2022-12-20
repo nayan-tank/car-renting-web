@@ -19,6 +19,7 @@ class UserComplain(forms.ModelForm):
     class Meta:
         model = Complain
         fields = '__all__'
+        exclude = ['user_id']
 
 
 # feedback
@@ -26,6 +27,7 @@ class UserFeedback(forms.ModelForm):
     class Meta:
         model = Feedback
         fields = '__all__'
+        exclude = ['user_id']
 
     
 # car request
@@ -33,6 +35,7 @@ class UserRequest(forms.ModelForm):
     class Meta:
         model = CarRequest
         fields = '__all__'
+        exclude = ['status', 'user_id']
 
 
 # inquiry
@@ -40,6 +43,7 @@ class UserInquiry(forms.ModelForm):
     class Meta:
         model = Inquiry
         fields = '__all__'
+        exclude = ['user_id']
 
 
 

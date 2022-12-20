@@ -4,8 +4,10 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from first import urls 
 from .models import *
+from itertools import chain
 
 
 # User Registration 
@@ -47,6 +49,7 @@ def user_login(request):
     return render(request, 'login.html', {'fm':fm})
 
 
+# User Logout
 def user_logout(request):
     logout(request)
     return redirect('login')
@@ -55,11 +58,30 @@ def user_logout(request):
 # Dashboard
 def dashboard(request):
     if request.user.is_authenticated:
-        return render(request, 'profile.html', )
+        user_id = request.user.id
+        # done
+        user_sell = CarRequest.objects.filter(user_id=user_id)
+
+        # user_buy is a query set
+        # sell = CompanySell.objects.all().filter('car_id', user_id=user_id)
+        # cars = Car.objects.all().filter(car_id in [])
+        # sell = CompanySell.objects.all().select_related('car_id').filter(user_id=user_id)
+        # print(cars.query)
+        # print(sell)
+        # print(cars)
+        # user_buy = Car.objects.select_related().all().filter(car_name=cars.get(car_id))
+
+
+
+
+        context = {
+            # 'user_buy' : sell,
+            'user_sell' : user_sell
+        }
+        # print(context)
+        return render(request, 'profile.html', context)
     else:
         return redirect('login')
-
-
 
 
 
@@ -67,9 +89,13 @@ def dashboard(request):
 def car_request(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            fm = UserRequest(request.POST)
-            if fm.is_valid():
-                fm.save()
+            fm = UserRequest(request.POST, request.FILES)
+            if fm.is_valid(): 
+                instance = fm.save(commit=False)
+                instance.user_id = request.user
+                instance.save()
+                messages.success(request, 'Request send successfully...')
+                return redirect('home')
         else:
             fm = UserRequest()
     else:
@@ -80,36 +106,71 @@ def car_request(request):
 
 # Complain 
 def complain(request):
-    if request.method == 'POST':
-        fm = UserComplain(request.POST)
-        if fm.is_valid():
-            fm.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            fm = UserComplain(request.POST)
+            if fm.is_valid():
+                instance = fm.save(commit=False)
+                instance.user_id = request.user
+                instance.save()
+                messages.success(request, 'Complain send successfully...')
+                return redirect('home')
+        else:
+            fm = UserComplain()
     else:
-        fm = UserComplain()
+        return redirect('login')
     return render(request, 'complain.html', {'fm': fm})
 
 
 
 # Inquiry
 def inquiry(request):
-    if request.method == 'POST':
-        fm = UserInquiry(request.POST)
-        if fm.is_valid():
-            fm.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            fm = UserInquiry(request.POST)
+            if fm.is_valid():
+                instance = fm.save(commit=False)
+                instance.user_id = request.user
+                instance.save()
+                messages.success(request, 'We have got your query. we will connect you soon ...')
+                return redirect('home')
+        else:
+            fm = UserInquiry()
     else:
-        fm = UserInquiry()
+        return redirect('login')
     return render(request, 'inquiry.html', {'fm': fm})
 
+
+# Car details page
+def cardetails(request, id):
+    if request.user.is_authenticated:
+        car = Car.objects.get(pk=id)
+        if car.sold_out == 0:
+            related_cars = Car.objects.all().filter(sold_out=0)
+            # print(car.model_id.brand_id)
+            print(related_cars)
+            return render(request, 'test.html', {'car': car, 'related': related_cars})
+        else:
+            return redirect('home')
+    else:
+        return redirect('login')
 
 
 # Feedback
 def feedback(request):
-    if request.method == 'POST':
-        fm = UserFeedback(request.POST)
-        if fm.is_valid():
-            fm.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            fm = UserFeedback(request.POST)
+            if fm.is_valid():
+                instance = fm.save(commit=False)
+                instance.user_id = request.user
+                instance.save()
+                messages.success(request, 'Thank you for your valuable time !')
+                return redirect('home')
+        else:
+            fm = UserFeedback()
     else:
-        fm = UserFeedback()
+        return redirect('login')
     return render(request, 'feedback.html', {'fm': fm})
 
 
@@ -123,4 +184,3 @@ def payment(request):
 # Error Page
 def error_404_view(request, exception):
     return render(request, '_404.html')
-

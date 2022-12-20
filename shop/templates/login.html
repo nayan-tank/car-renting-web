@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+{% endblock css %}
+
+{% block otherlink %}
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"/>
+{% endblock otherlink %}
+
 {% block title %}
   Login
 {% endblock title %}
 
 <!-- Sign in -->
 {% block body %}
-  
-  <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
-  <link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-    rel="stylesheet"
-    />
+
   <div class="login-box">
     <h1>Login</h1>
     <form method="POST">
@@ -28,7 +31,7 @@
         <br> <br>
 
         <p class="para-2">
-          Not have an account? <a href="{% url 'signup' %}">Sign Up Here</a>
+          Not have an account? <a href="{% url 'signup' %}"> Sign Up Here </a>
         </p>
       </form>
   </div>

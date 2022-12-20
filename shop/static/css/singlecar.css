@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    /* text-align: center; */
+    /* border: 1px solid;    */
+    margin: 20px;
+}
+
+.car-img{
+    border: 1px solid;
+    height: 300px;
+    margin: 20px;
+
+}
+
+#carouselExampleControls{
+    margin: 20px;
+}
+
+.car-details-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-details-container table th, table td{
+    /* empty-cells: hide; */
+    /* border: 1px solid;    */
+    padding: 10px;
+
+
+}
+
+.car-details-container table{
+    width: 700px;
+    margin: 20px;
+}
