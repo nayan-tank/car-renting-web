@@ -82,21 +82,17 @@
   <h1 class="feedback-heading"> Reviews </h1>
   <div class="feed-parent">
     <div class="feedback-container">
-      {% for fb in feedbacks %}
+      {% for rw in reviews %}
           <div class="feeback">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
-                <h5 class="card-title">{{fb.user_id}}</h5>
-                <p class="card-text">{{fb.feedback_text}}</p>
+                <h5 class="card-title">{{rw.user_id}}</h5>
+                <p class="card-text">{{rw.review_text}}</p>
               </div>
             </div>
           </div>
       {% endfor %}
     </div>
   </div>
-
-
-  
-
   
 {% endblock body %}

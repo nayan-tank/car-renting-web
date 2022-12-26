@@ -63,7 +63,9 @@
             <img src="images/404.svg" alt="404">
         </div>
         <h4>We can't fint the page you're looking for.</h4>
-        <button type="button" class="main-btn">GO BACK HOME</button>
+        <button type="button" class="main-btn">
+            <a href="{% url 'home' %}" style="text-decoration: none; color: white;">GO BACK HOME </a>   
+        </button>
     </div>
 </body>
 </html>

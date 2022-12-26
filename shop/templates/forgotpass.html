@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/forgotpass.css' %}">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+{% endblock css %}
+
+
+{% block body %}
+<div class="container d-flex flex-column forgotpass-parent">
+    <div class="row align-items-center justify-content-center
+        min-vh-100 g-0 forgotpass-container">
+      <div class="col-12 col-md-8 col-lg-4 border-top border-3 border-primary">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="mb-4">
+              <h5>Forgot Password?</h5>
+              <p class="mb-2">Enter your registered email ID to reset the password
+              </p>
+            </div>
+            <form>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Enter Your Email"
+                  required="">
+              </div>
+              <div class="mb-3 d-grid">
+                <button type="submit" class="btn btn-primary">
+                  Reset Password
+                </button>
+              </div>
+              <span>Don't have an account? <a href="{% url 'signup' %}">sign in</a></span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<div class="forgotpass-parent">
+    <div class="container">
+        <dv class="card">
+            <h5>Forgot Password?</h5>
+            <p class="">Enter your registered email ID to reset the password </p>
+            <form action="">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Enter Your Email" required="">
+                <button type="submit" class="btn btn-primary"> Reset Password </button>
+                <span>Don't have an account? <a href="{% url 'signup' %}">sign in</a></span>
+            </form>
+
+        </dv>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}

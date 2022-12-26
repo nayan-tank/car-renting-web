@@ -5,6 +5,9 @@
 
 .title{
     margin: 20px;
+    /* margin-left: 30px; */
+    text-align: center;
+    /* font-weight: 100; */
 }
 
 .related-car-title{
@@ -19,6 +22,7 @@
 .box-two{
     height: 100% !important;
     width: auto !important;
+   
 }
 
 .car-details-container{
@@ -56,13 +60,45 @@
 .box-two{
     border-left: 50px solid ;
     border-radius: 5px;
-    line-height: 500px;
+    line-height: 510px;
 
+}
+
+.box-three{
+    /* border: 1px solid red; */
+    margin: auto;
+}
+
+.box-three table{
+    margin: auto;
 }
 
 .car-img{
     width: 93%;
     margin: 20px;
+    margin-top: 5px;
+    border-radius: 30px;
+}
+
+.buy-btn-container{
+    margin: auto;
+    /* border: 1px solid; */
+    width: 95%;
+    display: flex;
+}
+
+.buy-btn{
+    margin: auto;
+    /* color: white ; */
+    /* border-radius: 8px; */
+    /* padding: 5px; */
+    width: 30%;
+}
+
+.buy-btn a, .buy-btn a:hover {
+    color: white;
+    text-decoration: none;
+
 }
 
 @media (max-width: 870px) {
@@ -79,6 +115,6 @@
     }
 
     .box-three{
-        margin: 20px;
+        margin-top: 20px;
     }
 }

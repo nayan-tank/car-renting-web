@@ -21,10 +21,11 @@
     <form method="POST">
 
       {% csrf_token %}
-            
+
+      <span class="error"> {{fm.non_field_errors}} </span>      
         {% for f in fm %}
           {{f.label_tag}}  
-          {{f}} <span class="error"> {{fm.errors|striptags}} </span>
+          {{f}} 
         {% endfor %}
 
         <button> Submit </button>
@@ -32,6 +33,9 @@
 
         <p class="para-2">
           Not have an account? <a href="{% url 'signup' %}"> Sign Up Here </a>
+        </p>
+        <p class="para-2" >
+           <a href="{% url 'forgotpass' %}"> Forgot Password </a>
         </p>
       </form>
   </div>

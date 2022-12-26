@@ -19,7 +19,7 @@
           
       {% for f in fm %}
         {{f.label_tag}}  
-        {{f}} <span class="error"> {{fm.errors|striptags}} </span>
+        {{f}} <span class="error"> {{f.errors|striptags}} </span>
       {% endfor %}
   
       <button> Submit </button>

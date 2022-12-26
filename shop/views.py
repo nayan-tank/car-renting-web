@@ -59,26 +59,21 @@ def user_logout(request):
 def dashboard(request):
     if request.user.is_authenticated:
         user_id = request.user.id
-        # done
+        # buy
         user_sell = CarRequest.objects.filter(user_id=user_id)
 
-        # user_buy is a query set
-        # sell = CompanySell.objects.all().filter('car_id', user_id=user_id)
-        # cars = Car.objects.all().filter(car_id in [])
-        # sell = CompanySell.objects.all().select_related('car_id').filter(user_id=user_id)
+        # sell
+        # user = User.objects.get(pk=user_id)
+        car_sell = CompanySell.objects.filter(user_id=user_id)
+        cars = Car.objects.filter(car_id__in=car_sell.values('car_id'))
+
         # print(cars.query)
-        # print(sell)
-        # print(cars)
-        # user_buy = Car.objects.select_related().all().filter(car_name=cars.get(car_id))
-
-
-
 
         context = {
-            # 'user_buy' : sell,
+            'user_buy' : cars,
             'user_sell' : user_sell
         }
-        # print(context)
+
         return render(request, 'profile.html', context)
     else:
         return redirect('login')
@@ -124,21 +119,21 @@ def complain(request):
 
 
 # Inquiry
-def inquiry(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            fm = UserInquiry(request.POST)
-            if fm.is_valid():
-                instance = fm.save(commit=False)
-                instance.user_id = request.user
-                instance.save()
-                messages.success(request, 'We have got your query. we will connect you soon ...')
-                return redirect('home')
-        else:
-            fm = UserInquiry()
-    else:
-        return redirect('login')
-    return render(request, 'inquiry.html', {'fm': fm})
+# def inquiry(request):
+#     if request.user.is_authenticated:
+#         if request.method == 'POST':
+#             fm = UserInquiry(request.POST)
+#             if fm.is_valid():
+#                 instance = fm.save(commit=False)
+#                 instance.user_id = request.user
+#                 instance.save()
+#                 messages.success(request, 'We have got your query. we will connect you soon ...')
+#                 return redirect('home')
+#         else:
+#             fm = UserInquiry()
+#     else:
+#         return redirect('login')
+#     return render(request, 'inquiry.html', {'fm': fm})
 
 
 # Car details page
@@ -146,9 +141,15 @@ def cardetails(request, id):
     if request.user.is_authenticated:
         car = Car.objects.get(pk=id)
         if car.sold_out == 0:
-            related_cars = Car.objects.all().filter(sold_out=0)
+
+            brand_id = car.model_id.brand_id
+
+            models = Model.objects.all().filter(brand_id=brand_id)
+            related_cars = Car.objects.filter(model_id__in=models.values('model_id'), sold_out=0).exclude(pk=id)
+
             # print(car.model_id.brand_id)
-            print(related_cars)
+            # print(related_cars)
+
             return render(request, 'test.html', {'car': car, 'related': related_cars})
         else:
             return redirect('home')
@@ -156,11 +157,11 @@ def cardetails(request, id):
         return redirect('login')
 
 
-# Feedback
-def feedback(request):
+# Review
+def review(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            fm = UserFeedback(request.POST)
+            fm = UserFeedback(request.POST) 
             if fm.is_valid():
                 instance = fm.save(commit=False)
                 instance.user_id = request.user
@@ -171,7 +172,18 @@ def feedback(request):
             fm = UserFeedback()
     else:
         return redirect('login')
-    return render(request, 'feedback.html', {'fm': fm})
+    return render(request, 'review.html', {'fm': fm})
+
+
+
+# forgot password
+def forgotpass(request):
+    if not request.user.is_authenticated:
+        return render(request, 'forgotpass.html')
+    else:
+        return redirect('dashboard')
+
+
 
 
 
@@ -184,3 +196,4 @@ def payment(request):
 # Error Page
 def error_404_view(request, exception):
     return render(request, '_404.html')
+

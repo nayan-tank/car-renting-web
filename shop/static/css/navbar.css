@@ -43,11 +43,14 @@ nav .ul li a{
     border-radius: 3px;
 }
 
-a.active, a:hover{
+a:hover{
     /* background: white;   */
     /* border: 2px solid white; */
     /* color: aqua; */
     /* transition: .5s; */
+    /* border: 2px solid white;
+    border-radius: 5px;
+    padding: 3px; */
 }
 
 .checkbtn{
@@ -83,6 +86,7 @@ a.active, a:hover{
         /* background: white; */
         /* border: 2px solid white; */
         /* transition: .5s; */
+        
     }
 }
 

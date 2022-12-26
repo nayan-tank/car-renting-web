@@ -1,0 +1,19 @@
+.forgotpass-container{
+    width: 100% !important;
+    border: 1px solid green;
+}
+
+.forgotpass-parent{
+    border: 1px solid red;
+
+}
+
+.card-body{
+    width: 100% !important;
+    border: 1px solid orange;
+}
+
+.card{
+    width: 100% !important;
+    border: 3px solid red;
+}

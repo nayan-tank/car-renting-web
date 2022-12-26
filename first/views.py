@@ -8,7 +8,8 @@ from shop.forms import *
 def home(request):
     # get request for car
     cars = Car.objects.filter(sold_out=0)
-    feedbacks = Feedback.objects.all()
+    reviews = Review.objects.all()
+    print(reviews)
 
     paginator = Paginator(cars, 3)
     page_number = request.GET.get('page') 
@@ -18,7 +19,7 @@ def home(request):
     context = { 'car': page_obj, 
                 'lastpage': totalpage,
                 'totalpagelist': [n+1 for n in range(totalpage)],
-                'feedbacks': feedbacks
+                'reviews': reviews
             }
 
     # print(context)
@@ -56,7 +57,7 @@ def home(request):
         context = { 'car': page_obj, 
                     'lastpage': totalpage,
                     'totalpagelist': [n+1 for n in range(totalpage)],
-                    'feedbacks': feedbacks
+                    'reviews': reviews
                 }
 
         # print(context)
